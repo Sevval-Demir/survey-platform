@@ -13,4 +13,6 @@ public class Survey
     public DateTime? UpdatedAt { get; set; }
 
     public bool IsActive { get; set; }
+    public ICollection<Question> Questions { get; set; } = new List<Question>();
+    public ICollection<Response> Responses { get; set; } = new List<Response>();
 }

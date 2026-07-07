@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SurveyPlatform.Api.Data;
 
@@ -11,9 +12,11 @@ using SurveyPlatform.Api.Data;
 namespace SurveyPlatform.Api.Migrations
 {
     [DbContext(typeof(SurveyDbContext))]
-    partial class SurveyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260707125839_AddOption")]
+    partial class AddOption
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,38 +75,6 @@ namespace SurveyPlatform.Api.Migrations
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("SurveyPlatform.Api.Models.Response", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("AnsweredAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("OptionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("QuestionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SurveyId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("TextAnswer")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OptionId");
-
-                    b.HasIndex("QuestionId");
-
-                    b.HasIndex("SurveyId");
-
-                    b.ToTable("Responses");
-                });
-
             modelBuilder.Entity("SurveyPlatform.Api.Models.Survey", b =>
                 {
                     b.Property<Guid>("Id")
@@ -153,50 +124,14 @@ namespace SurveyPlatform.Api.Migrations
                     b.Navigation("Survey");
                 });
 
-            modelBuilder.Entity("SurveyPlatform.Api.Models.Response", b =>
-                {
-                    b.HasOne("SurveyPlatform.Api.Models.Option", "Option")
-                        .WithMany("Responses")
-                        .HasForeignKey("OptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SurveyPlatform.Api.Models.Question", "Question")
-                        .WithMany("Responses")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SurveyPlatform.Api.Models.Survey", "Survey")
-                        .WithMany("Responses")
-                        .HasForeignKey("SurveyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Option");
-
-                    b.Navigation("Question");
-
-                    b.Navigation("Survey");
-                });
-
-            modelBuilder.Entity("SurveyPlatform.Api.Models.Option", b =>
-                {
-                    b.Navigation("Responses");
-                });
-
             modelBuilder.Entity("SurveyPlatform.Api.Models.Question", b =>
                 {
                     b.Navigation("Options");
-
-                    b.Navigation("Responses");
                 });
 
             modelBuilder.Entity("SurveyPlatform.Api.Models.Survey", b =>
                 {
                     b.Navigation("Questions");
-
-                    b.Navigation("Responses");
                 });
 #pragma warning restore 612, 618
         }
