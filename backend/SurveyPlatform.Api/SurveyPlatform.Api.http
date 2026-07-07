@@ -1,6 +1,38 @@
 @SurveyPlatform.Api_HostAddress = http://localhost:5249
+@SurveyId = 00000000-0000-0000-0000-000000000000
 
-GET {{SurveyPlatform.Api_HostAddress}}/weatherforecast/
+GET {{SurveyPlatform.Api_HostAddress}}/api/surveys
+Accept: application/json
+
+###
+
+POST {{SurveyPlatform.Api_HostAddress}}/api/surveys
+Content-Type: application/json
+
+{
+  "title": "Internship Feedback Survey",
+  "description": "Survey created on day 2"
+}
+
+###
+
+GET {{SurveyPlatform.Api_HostAddress}}/api/surveys/{{SurveyId}}
+Accept: application/json
+
+###
+
+PUT {{SurveyPlatform.Api_HostAddress}}/api/surveys/{{SurveyId}}
+Content-Type: application/json
+
+{
+  "title": "Updated Internship Feedback Survey",
+  "description": "Survey updated on day 2",
+  "isActive": true
+}
+
+###
+
+DELETE {{SurveyPlatform.Api_HostAddress}}/api/surveys/{{SurveyId}}
 Accept: application/json
 
 ###
